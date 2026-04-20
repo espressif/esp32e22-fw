@@ -1,0 +1,16 @@
+{
+  "chip": "esp32e22",
+  "firmware": {
+    "version": 0,
+    "build_date": "1970-01-01T00:00:00Z",
+    "size_bytes": 0,
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "source": {
+    "repo": "esp-firmware-system",
+    "commit": "00000000",
+    "branch": "main"
+  },
+  "features": ["wifi", "bt"],
+  "secure_download": false
+}

@@ -1,93 +1,83 @@
 # esp32e22-fw
 
+## Overview
 
+`esp32e22-fw` is a firmware repository for the `esp32e22` platform. It is used to store and distribute prebuilt firmware binaries required by the solution, including both `Wi-Fi` and `Bluetooth` functionality.
 
-## Getting started
+This repository serves as a unified firmware delivery source for both the `esp32e22` `Linux` driver and `Windows` driver. Its primary purpose is binary distribution and version management rather than firmware source development.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Repository Purpose
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+- Provide a centralized location for `esp32e22` firmware binaries
+- Support driver integration on both `Linux` and `Windows`
+- Keep `Wi-Fi` and `Bluetooth` firmware artifacts aligned under one repository
+- Simplify release management and firmware version tracking
 
-## Add your files
+## Notes
 
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+- This repository primarily contains released firmware artifacts in binary form
+- Driver projects can reference this repository as the firmware source during packaging or integration
+- If additional release metadata is needed, it is recommended to maintain version, changelog, and compatibility information together with the binaries
+- See [`COPYRIGHT.md`](COPYRIGHT.md) for copyright and third-party attribution information
 
+## Firmware File and Versioning
+
+Each official release in this repository contains exactly one firmware binary
+at a fixed path:
+
+- `esp32e22-fw.bin` — the firmware binary (filename never changes)
+- `manifest.json` — release metadata (version, source commit, build date, etc.)
+
+Firmware versions are monotonically increasing integers. `version: 0` is
+reserved as a non-official placeholder; official releases start at `1` and are
+exposed as git tags (`v1`, `v2`, `v3`, ...). The Secure Download variant uses
+the same binary format and the same filename; whether the current firmware
+supports Secure Download is recorded in `manifest.json`.
+
+During the non-official `version: 0` placeholder stage, the repository may
+temporarily contain only metadata files and no firmware binary yet.
+
+For the full versioning, manifest schema, and release workflow, see
+[VERSIONING.md](VERSIONING.md).
+
+### Release Example
+
+After replacing `esp32e22-fw.bin` with a newly built firmware image, update
+`manifest.json` with:
+
+```bash
+tools/update-manifest.sh \
+    --version 1 \
+    --source-commit a3f9c129 \
+    --source-branch main \
+    --secure-download false
 ```
-cd existing_repo
-git remote add origin https://gitlab.espressif.cn:6688/espressif/esp32e22-fw.git
-git branch -M main
-git push -uf origin main
-```
 
-## Integrate with your tools
+## Related Repository
 
-* [Set up project integrations](https://gitlab.espressif.cn:6688/espressif/esp32e22-fw/-/settings/integrations)
+For Linux driver integration, see the sibling driver repository
+[`esp32e22-linux-driver`](../esp32e22-linux-driver).
 
-## Collaborate with your team
+Windows driver repository: TBD.
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+To keep these references portable across GitLab and GitHub mirrors, links are
+expressed as relative repository paths rather than host-specific URLs.
 
-## Test and Deploy
+## Integration
 
-Use the built-in continuous integration in GitLab.
+This repository may be consumed by upstream projects as a Git submodule for
+firmware binary delivery, release management, and version tracking.
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+Upstream projects may place this repository under a directory such as
+`firmware/`. When mirrored across multiple Git hosting services, relative
+submodule URLs such as `../esp32e22-fw` may be used where appropriate to keep
+submodule resolution consistent across mirrors.
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+This repository is licensed under the Apache License, Version 2.0. See the
+[LICENSE](LICENSE) file for the full license text and [COPYRIGHT.md](COPYRIGHT.md)
+for copyright and third-party attribution information.
+
+The firmware in this repository is distributed in binary (Object) form only;
+source code is not included.

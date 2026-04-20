@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://espressif.com/schemas/esp32e22-fw/manifest.schema.json",
+  "title": "esp32e22-fw manifest",
+  "description": "Schema for the release manifest of the esp32e22-fw repository.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["chip", "firmware", "source", "features", "secure_download"],
+  "properties": {
+    "chip": {
+      "type": "string",
+      "const": "esp32e22",
+      "description": "Target chip identifier. Always 'esp32e22' for this repository."
+    },
+    "firmware": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "build_date", "size_bytes", "sha256"],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Monotonically increasing firmware version. 0 is reserved as a non-official placeholder; official releases start at 1."
+        },
+        "build_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Firmware build timestamp in ISO 8601 (UTC), for example '2026-04-20T12:34:56Z'."
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Size of esp32e22-fw.bin in bytes."
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "Lowercase hex SHA-256 of esp32e22-fw.bin."
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repo", "commit"],
+      "properties": {
+        "repo": {
+          "type": "string",
+          "const": "esp-firmware-system",
+          "description": "Name of the firmware source repository. Always 'esp-firmware-system'."
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{8}$",
+          "description": "8-character short commit SHA in esp-firmware-system from which the firmware was built."
+        },
+        "branch": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Branch name in esp-firmware-system at build time. Optional but recommended."
+        }
+      }
+    },
+    "features": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["wifi", "bt"]
+      },
+      "description": "Functional features supported by the firmware."
+    },
+    "secure_download": {
+      "type": "boolean",
+      "description": "Whether this firmware supports Secure Download."
+    }
+  }
+}
