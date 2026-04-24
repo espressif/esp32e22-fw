@@ -12,14 +12,14 @@
 #     --version 3 \
 #     --source-commit a3f9c129 \
 #     --source-branch main \
-#     [--build-date 2026-04-20T12:34:56Z] \
+#     [--build-date 2026-04-20T12:34:56+08:00] \
 #     [--features wifi,bt] \
 #     [--secure-download false] \
 #     [--firmware esp32e22-fw.bin] \
 #     [--manifest manifest.json]
 #
 # Defaults:
-#   --build-date       current UTC time (ISO 8601)
+#   --build-date       current local time with numeric zone offset (RFC 3339 / ISO 8601)
 #   --features         wifi,bt
 #   --secure-download  false
 #   --firmware         esp32e22-fw.bin
@@ -110,7 +110,8 @@ else
 fi
 
 if [[ -z "$BUILD_DATE" ]]; then
-    BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+    # Local wall clock with numeric zone offset. GNU date: %:z -> +08:00; else %z -> +0800.
+    BUILD_DATE="$(date +"%Y-%m-%dT%H:%M:%S%z")"
 fi
 
 SIZE_BYTES="$(stat -c '%s' "$FIRMWARE" 2>/dev/null || stat -f '%z' "$FIRMWARE")"

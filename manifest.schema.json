@@ -25,7 +25,7 @@
         "build_date": {
           "type": "string",
           "format": "date-time",
-          "description": "Firmware build timestamp in ISO 8601 (UTC), for example '2026-04-20T12:34:56Z'."
+          "description": "Firmware build timestamp: local wall time with UTC offset (RFC 3339), for example '2026-04-20T12:34:56+08:00'."
         },
         "size_bytes": {
           "type": "integer",

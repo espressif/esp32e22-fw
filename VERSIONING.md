@@ -74,7 +74,7 @@ single source of truth for version, build, and source-traceability information.
   "chip": "esp32e22",
   "firmware": {
     "version": 1,
-    "build_date": "2026-04-20T12:34:56Z",
+    "build_date": "2026-04-20T12:34:56+08:00",
     "size_bytes": 1234567,
     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
@@ -94,7 +94,7 @@ single source of truth for version, build, and source-traceability information.
 |---|---|---|
 | `chip` | string | Target chip identifier. Always `esp32e22` for this repository. |
 | `firmware.version` | integer | Monotonically increasing firmware version. `0` is reserved as a non-official placeholder; official releases start at `1`. |
-| `firmware.build_date` | string | Firmware build timestamp in ISO 8601 (UTC). |
+| `firmware.build_date` | string | Firmware build timestamp: local wall time with UTC offset (RFC 3339), e.g. `2026-04-20T12:34:56+08:00`. |
 | `firmware.size_bytes` | integer | Size of `esp32e22-fw.bin` in bytes. |
 | `firmware.sha256` | string | SHA-256 of `esp32e22-fw.bin`, lowercase hex. |
 | `source.repo` | string | Name of the firmware source repository. Always `esp-firmware-system`. |
