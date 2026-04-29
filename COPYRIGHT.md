@@ -3,7 +3,7 @@
 ## Firmware Copyrights
 
 All original prebuilt binary firmware in this repository is
-Copyright (C) 2026 Espressif Systems (Shanghai) CO., LTD.
+Copyright (C) 2026 Espressif Systems (Shanghai) CO LTD
 
 This firmware is licensed under the Apache License, Version 2.0 as described in
 the [LICENSE](LICENSE) file.

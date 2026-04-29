@@ -103,11 +103,16 @@ single source of truth for version, build, and source-traceability information.
 | `features` | array of strings | Functional features supported by the firmware, e.g. `wifi`, `bt`. |
 | `secure_download` | boolean | Whether this firmware supports Secure Download. |
 
-### Driver Behaviour
+### Planned Driver Behaviour
 
-Drivers consume the firmware as follows:
+The following describes the **planned** driver-facing firmware integration
+model. At present, this repository provides a single canonical firmware
+artifact for release tracking, while packaging or installation may rename or
+map that artifact to the runtime filename expected by a specific driver.
 
-1. Load the firmware binary from the fixed path `esp32e22-fw.bin`.
+In the planned model, drivers will consume the firmware as follows:
+
+1. Load the installed firmware binary from the driver-defined runtime path.
 2. Read `manifest.json` to obtain the version, source commit, and feature
    information.
 3. Optionally verify the firmware integrity using `firmware.sha256`.
@@ -117,8 +122,8 @@ Drivers consume the firmware as follows:
    `esp32e22-fw v3 (src esp-firmware-system @ a3f9c129, secure_download=false)`
    to aid in field debugging.
 
-Drivers should tolerate a missing or partially populated `manifest.json` by
-falling back to safe defaults and emitting a warning.
+Until that integration is implemented, `manifest.json` and the related release
+metadata should be treated as release-side preparation and compatibility data.
 
 ## Release Workflow
 
