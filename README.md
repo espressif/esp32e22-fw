@@ -56,13 +56,10 @@ tools/update-manifest.sh \
 ## Related Repository
 
 For Linux driver integration, see the sibling driver repository
-[`esp32e22-linux-driver`](../esp32e22-linux-driver).
+[`esp32e22-linux-driver`](https://github.com/espressif/esp32e22-linux-driver).
 
 Windows driver integration may be documented in a separate repository when
 available.
-
-To keep these references portable across GitLab and GitHub mirrors, links are
-expressed as relative repository paths rather than host-specific URLs.
 
 ## Integration
 
