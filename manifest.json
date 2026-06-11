@@ -2,13 +2,13 @@
   "chip": "esp32e22",
   "firmware": {
     "version": 0,
-    "build_date": "2026-04-29T15:40:06+0800",
-    "size_bytes": 747760,
-    "sha256": "91abb63499b8ad0c6decad5ed9074cceb301e57f68c97324a62d2f4be678507c"
+    "build_date": "2026-06-11T18:58:37+0800",
+    "size_bytes": 746592,
+    "sha256": "121d61294d78d959922ef0b4fe753f7e2a361987b5c827d461385113823293fe"
   },
   "source": {
     "repo": "esp-firmware-system",
-    "commit": "421f108d",
+    "commit": "af1e0ea0",
     "branch": "master"
   },
   "features": [
